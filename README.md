@@ -103,10 +103,15 @@ mvn clean test
 
 ## Resultados de Pruebas Unitarias y Cobertura
 
-A continuación se presenta el resultado de la ejecución automatizada de la suite de pruebas unitarias (17 tests ejecutados, 0 fallos):
+A continuación se presenta el resultado de la ejecución automatizada de la suite de pruebas unitarias (21 tests ejecutados, 100% de cobertura de código alcanzada):
 
 ![Resultados de Pruebas Unitarias Maven y JaCoCo](docs/images/coverage-backend-DDD.png)
 
+> **Nota de Arquitectura sobre Persistencia:**
+> 
+> En este módulo (Módulo 3), el almacenamiento se gestiona mediante la simulación de persistencia en memoria (`InMemoryEvaluationRepository`) aplicando el **Patrón Repositorio** y la Inversión de Dependencias (DIP).
+> 
+> El guardado físico en una base de datos relacional (PostgreSQL), junto con la integración del ORM (JPA / Hibernate) y la API REST con Spring Boot, se incorporará formalmente en el **Módulo 4: Microservicios con Spring Boot, PostgreSQL y Docker**.
 
 ---
 

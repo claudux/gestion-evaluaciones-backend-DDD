@@ -24,6 +24,6 @@ public record EvaluationScore(double value) {
 
     @Override
     public String toString() {
-        return String.format("%.1f", value);
+        return String.format(java.util.Locale.US, "%.1f", value);
     }
 }

@@ -45,4 +45,15 @@ class InMemoryEvaluationRepositoryTest {
 
         assertEquals(2, repository.findAll().size());
     }
+
+    @Test
+    @DisplayName("Debe eliminar una evaluación por ID")
+    void testDeleteById() {
+        Evaluation eval = new Evaluation(5, "e5@test.com", LocalDate.now().plusDays(1));
+        repository.save(eval);
+        assertTrue(repository.findById(5).isPresent());
+
+        repository.deleteById(5);
+        assertFalse(repository.findById(5).isPresent());
+    }
 }

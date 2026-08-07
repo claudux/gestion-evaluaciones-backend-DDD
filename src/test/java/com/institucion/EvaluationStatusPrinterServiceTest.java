@@ -122,4 +122,18 @@ class EvaluationStatusPrinterServiceTest {
             printerService.requestPrintJob(evaluation, invalidCopies);
         });
     }
+
+    @Test
+    @DisplayName("Debe persistir en el repositorio cuando este se encuentra inyectado")
+    void testRequestPrintJobWithRepositorySave() {
+        com.institucion.evaluaciones.domain.repository.EvaluationRepository mockRepo = mock(com.institucion.evaluaciones.domain.repository.EvaluationRepository.class);
+        com.institucion.evaluaciones.application.EvaluationStatusPrinterService serviceWithRepo = 
+            new com.institucion.evaluaciones.application.EvaluationStatusPrinterService(notificationService, mockRepo);
+
+        validEvaluation.publish();
+        serviceWithRepo.requestPrintJob(validEvaluation, 10);
+
+        verify(notificationService, times(1)).sendAlert(eq("claudio@latam.cl"), anyString());
+        verify(mockRepo, times(1)).save(validEvaluation);
+    }
 }
