@@ -105,9 +105,8 @@ mvn clean test
 
 A continuación se presenta el resultado de la ejecución automatizada de la suite de pruebas unitarias (17 tests ejecutados, 0 fallos):
 
-![Resultados de Pruebas Unitarias Maven y JaCoCo](docs/images/test-results.png)
+![Resultados de Pruebas Unitarias Maven y JaCoCo](docs/images/coverage backend DDD.png)
 
-> **Nota:** Reemplazar el archivo `docs/images/test-results.png` con la captura de pantalla actualizada de los resultados de `mvn test` o el reporte HTML de JaCoCo.
 
 ---
 
