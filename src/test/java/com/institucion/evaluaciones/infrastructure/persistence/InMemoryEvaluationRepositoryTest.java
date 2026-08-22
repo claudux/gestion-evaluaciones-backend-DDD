@@ -1,8 +1,6 @@
 package com.institucion.evaluaciones.infrastructure.persistence;
 
 import com.institucion.evaluaciones.domain.model.Evaluation;
-import com.institucion.evaluaciones.domain.model.valueobjects.EvaluationScore;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,26 +20,28 @@ class InMemoryEvaluationRepositoryTest {
     @BeforeEach
     void setUp() {
         repository = new InMemoryEvaluationRepository();
+        repository.clear();
     }
 
     @Test
     @DisplayName("Debe guardar y recuperar una evaluación por ID")
     void testSaveAndFindById() {
-        Evaluation eval = new Evaluation(10, "estudiante@latam.cl", LocalDate.now().plusDays(2), new EvaluationScore(6.8));
+        Evaluation eval = new Evaluation(10, "Bases de Datos", "estudiante@latam.cl", 25, LocalDate.now().plusDays(2), "Publicada");
         repository.save(eval);
 
         Optional<Evaluation> found = repository.findById(10);
         assertTrue(found.isPresent());
+        assertEquals("Bases de Datos", found.get().getSubject());
         assertEquals("estudiante@latam.cl", found.get().getStudentEmail());
-        assertNotNull(found.get().getScore());
-        assertEquals(6.8, found.get().getScore().value());
+        assertEquals(25, found.get().getCopies());
+        assertEquals("Publicada", found.get().getStatus());
     }
 
     @Test
     @DisplayName("Debe listar todas las evaluaciones guardadas")
     void testFindAll() {
-        repository.save(new Evaluation(1, "e1@test.com", LocalDate.now().plusDays(1)));
-        repository.save(new Evaluation(2, "e2@test.com", LocalDate.now().plusDays(1)));
+        repository.save(new Evaluation(1, "Estructuras", 20, LocalDate.now().plusDays(1)));
+        repository.save(new Evaluation(2, "Algoritmos", 30, LocalDate.now().plusDays(1)));
 
         assertEquals(2, repository.findAll().size());
     }
@@ -49,7 +49,7 @@ class InMemoryEvaluationRepositoryTest {
     @Test
     @DisplayName("Debe eliminar una evaluación por ID")
     void testDeleteById() {
-        Evaluation eval = new Evaluation(5, "e5@test.com", LocalDate.now().plusDays(1));
+        Evaluation eval = new Evaluation(5, "Redes", 15, LocalDate.now().plusDays(1));
         repository.save(eval);
         assertTrue(repository.findById(5).isPresent());
 

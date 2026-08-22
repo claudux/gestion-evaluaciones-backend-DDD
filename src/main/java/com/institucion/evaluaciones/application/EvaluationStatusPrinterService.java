@@ -41,9 +41,10 @@ public class EvaluationStatusPrinterService {
             throw new InvalidCopyQuantityException("The number of copies must be greater than 0 and less than 50.");
         }
 
-        //regla 3, solo se puede imprimir la evaluacion el dia anterior a la fecha establecida
-        if (!LocalDate.now().isBefore(evaluation.getEvaluationDate())) {
-            throw new InvalidEvaluationDateException("La impresión solo puede realizarse el dia anterior a la evaluación");
+        //regla 3, solo se puede imprimir la evaluacion exactamente el dia anterior a la fecha establecida
+        LocalDate authorizedPrintDate = evaluation.getEvaluationDate().minusDays(1);
+        if (!LocalDate.now().equals(authorizedPrintDate)) {
+            throw new InvalidEvaluationDateException("La impresión solo puede realizarse el dia anterior a la evaluación (" + authorizedPrintDate + ")");
         }
 
         // si pasa las reglas, camino correcto
